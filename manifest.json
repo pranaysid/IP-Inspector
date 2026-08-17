@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "IP Intelligence Inspector",
+  "version": "1.0.0",
+  "description": "Check an IP against ProxyCheck and VPNAPI for VPN, proxy, Tor and relay signals.",
+  "icons": {
+    "16": "icons/globe16.png",
+    "32": "icons/globe32.png",
+    "48": "icons/globe48.png",
+    "128": "icons/globe128.png"
+  },
+  "action": {
+    "default_title": "IP Intelligence Inspector",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/globe16.png",
+      "32": "icons/globe32.png",
+      "48": "icons/globe48.png",
+      "128": "icons/globe128.png"
+    }
+  },
+  "options_page": "options.html",
+  "permissions": [
+    "storage",
+    "clipboardWrite"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ]
+}
