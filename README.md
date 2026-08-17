@@ -1,43 +1,64 @@
-# IP Intelligence Inspector – Chrome Extension
+# IP Intelligence Inspector
 
-Chrome extension for checking an IP directly against ProxyCheck and VPNAPI.
+A lightweight Chrome extension that checks any IPv4/IPv6 address against [ProxyCheck](https://proxycheck.io) and [VPNAPI](https://vpnapi.io) in one click, surfacing VPN, proxy, Tor, and relay signals side by side — no backend server required.
 
-## First run
+![Manifest](https://img.shields.io/badge/manifest-v3-blue) ![Status](https://img.shields.io/badge/status-unpacked%20install-yellow)
 
-The extension asks for:
+## Features
 
-- ProxyCheck API key
-- VPNAPI API key
+- **Dual-source lookups** — queries ProxyCheck and VPNAPI in parallel and merges the results into a single verdict
+- **Signal grid** — VPN / Proxy / TOR / Relay flags at a glance, with detected values highlighted
+- **Risk score** — ProxyCheck's 0–100 risk score with a color-coded gauge
+- **Geo & network info** — country (with flag), city/region, ISP/org, and ASN
+- **Persistent last search** — the popup remembers your most recent lookup across opens/closes
+- **One-click copy** — copy the full raw result as JSON
+- **Local-only keys** — your ProxyCheck and VPNAPI keys are stored in `chrome.storage.local` and never leave your machine except in the direct API calls you initiate
 
-After saving, the keys are stored in `chrome.storage.local` and reused automatically.
+## Screenshot
 
-## Direct API mode
+<p align="center">
+  <img src="screenshot.png" width="452" alt="IP Intelligence Inspector popup showing a detected VPN result">
+</p>
 
-The extension no longer requires the Flask backend. It calls the APIs directly:
+## Install (unpacked / developer mode)
 
-- ProxyCheck v2: `https://proxycheck.io/v2/<IP>?key=...&vpn=1&asn=1&node=1&time=1&risk=1&port=1&seen=1&days=7`
-- VPNAPI: `https://vpnapi.io/api/<IP>?key=...`
+The extension isn't published to the Chrome Web Store yet, so install it as an unpacked extension:
 
-The request parameters match the original Python implementation.
-
-### ProxyCheck note
-
-ProxyCheck documents a client-side/CORS mode using a public API key and configured origins. If your normal ProxyCheck key is rejected for browser/client-side use, create/use the client-side public key in the ProxyCheck dashboard and configure the extension origin as required by ProxyCheck.
-
-## Install
-
-1. Extract the ZIP.
-2. Open `chrome://extensions`.
-3. Enable Developer mode.
+1. Download or clone this repository.
+2. Open `chrome://extensions` in Chrome.
+3. Toggle **Developer mode** on (top-right corner).
 4. Click **Load unpacked**.
-5. Select the extension folder.
-6. Open the extension.
-7. Enter both API keys on first run.
+5. Select the folder containing `manifest.json`.
+6. The IP Inspector icon appears in your toolbar — pin it for quick access.
+7. Click the icon and enter your **ProxyCheck** and **VPNAPI** API keys when prompted (both are free to sign up for). Keys are saved locally and only need to be entered once.
 
-## Change API keys
+## Usage
 
-Open the extension settings (gear icon) to update or clear the saved keys.
+1. Click the toolbar icon.
+2. Enter an IPv4 or IPv6 address and press **Enter** or click search.
+3. Review the verdict, signal grid, risk score, and per-source details.
+4. Use the copy icon in the top bar to grab the full JSON result, or the gear icon to update/clear your saved API keys.
 
-## Security
+## Permissions
 
-The keys are stored in Chrome extension local storage. This is suitable for a personal/internal extension, but it should not be treated as a secure secret vault. Anyone with access to the local extension profile may potentially retrieve them.
+| Permission | Why it's needed |
+|---|---|
+| `storage` | Saves your API keys and your last lookup locally |
+| `clipboardWrite` | Powers the "copy result" button |
+| Host permissions (ProxyCheck / VPNAPI) | Lets the extension call both APIs directly from the popup |
+
+## Privacy
+
+- API keys and lookup results are stored **only** in `chrome.storage.local` on your machine.
+- The only network calls this extension makes are to `proxycheck.io` and `vpnapi.io`, using the IP address you enter.
+- No analytics, telemetry, or third-party servers are involved.
+
+## Roadmap
+
+- [ ] Publish to the Chrome Web Store
+- [ ] Scoped host permissions for the two API domains only
+- [ ] Optional dark mode
+
+## License
+
+Personal/internal use. Add a license of your choice before publishing publicly.
