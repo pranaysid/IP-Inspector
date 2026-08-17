@@ -18,9 +18,7 @@ A lightweight Chrome extension that checks any IPv4/IPv6 address against [ProxyC
 <img width="351" height="451" alt="image" src="https://github.com/user-attachments/assets/aebcf5ae-f748-4a23-a578-b50b81ba8bf5" />
 
 
-<p align="center">
-  <img src="screenshot.png" width="452" alt="IP Intelligence Inspector popup showing a detected VPN result">
-</p>
+
 
 ## Install (unpacked / developer mode)
 
